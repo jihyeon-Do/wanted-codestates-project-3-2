@@ -1,29 +1,18 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Main from './pages/Main';
 import User from './pages/User';
 import Rank from './pages/Rank';
 import Header from './components/Header';
-import axios from 'axios';
-import { headers } from './constants';
+// import fetchUserData from './service/getData';
 
 function App() {
-  useEffect(() => {
-    const fetchData = async () => {
-      const nickname = '시우민188';
-      try {
-        const response = await axios({
-          method: 'GET',
-          url: `/api/users/nickname/${nickname}`,
-          headers,
-        });
-        console.log(response);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const userData = fetchUserData();
+  //   setUser(userData);
+  // }, []);
+
+  // const [user, setUser] = useState();
 
   return (
     <BrowserRouter>
