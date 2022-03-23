@@ -5,14 +5,19 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { fetchUserData } from '../service/getData';
 import { searchUser } from '../redux/action/action';
+
 const Search = props => {
   const dispatch = useDispatch();
 
   const searchValue = async e => {
-    if (e.keyCode !== 13) return;
+    if (e.key !== 'Enter') return;
     e.preventDefault();
     const nickname = e.target.value;
-    dispatch(searchUser(await fetchUserData(nickname)));
+    if (nickname === '') {
+      alert('올바른 닉네임을 입력해주세요');
+    } else {
+      dispatch(searchUser(await fetchUserData(nickname)));
+    }
   };
 
   return (
