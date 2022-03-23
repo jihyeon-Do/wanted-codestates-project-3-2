@@ -107,21 +107,23 @@ const UserDetailInfoComponent = styled.section`
     grid-template-rows: repeat(4);
     grid-template-columns: repeat(3, 1fr);
     grid-template-areas:
-      'nav nav nav nav'
+      'tab tab tab tab'
       'track match match match';
-    nav {
-      grid-area: nav;
+    div {
+      grid-area: tab;
     }
     article:nth-of-type(1) {
       grid-area: track;
+      margin-right: 15px;
     }
     article:nth-of-type(2) {
       grid-area: match;
+      margin-top: 60px;
     }
   }
 `;
 
-const TabWrapper = styled.nav`
+const TabWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   background: transparent;
@@ -143,7 +145,7 @@ const TabWrapper = styled.nav`
 `;
 const Tabs = styled.li`
   text-align: center;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 0.8rem;
   width: 90px;
   height: 50px;

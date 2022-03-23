@@ -99,7 +99,7 @@ const UserCharacter = styled.div`
 const ProfileView = styled.div`
   h1 {
     font-size: 45px;
-    font-weight: 900;
+    font-weight: 700;
     color: #1f334a;
     margin-bottom: 30px;
     span {

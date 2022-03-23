@@ -1,11 +1,104 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import { Chart, registerables } from 'chart.js';
 
 const RankChange = props => {
   const matchData = useSelector(state => state.dataReducer.data?.matches);
+  const canvasDom = useRef(null);
+  const chartX = [
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+    '이전1경기',
+  ];
+  useEffect(() => {
+    const ctx = canvasDom.current.getContext('2d');
+    Chart.register(...registerables);
 
+    var myChart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: chartX,
+        datasets: [
+          {
+            label: '순위',
+            data: [
+              1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 5, 5, 4, 3, 3, 7, 8, 4, 1, 2,
+              1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 5, 5, 4, 3, 3, 7, 8, 4, 1, 2, 3, 4,
+              4, 4, 4, 5, 6, 3,
+            ],
+          },
+        ],
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            display: false,
+          },
+        },
+        scales: {
+          x: {
+            display: false,
+          },
+          y: {
+            reverse: true,
+          },
+        },
+      },
+    });
+    return () => {
+      myChart.destroy();
+    };
+  }, []);
   return (
     <>
       {matchData && (
@@ -23,7 +116,9 @@ const RankChange = props => {
               </span>
             </p>
           </div>
-          <div>그래프</div>
+          <div>
+            <canvas ref={canvasDom}></canvas>
+          </div>
         </RankChangeComponent>
       )}
     </>
@@ -42,10 +137,10 @@ const RankChangeComponent = styled.article`
     border-bottom: 1px solid #ccc;
     h4 {
       font-size: 0.9rem;
-      font-weight: bold;
+      font-weight: 500;
     }
     p {
-      font-weight: bold;
+      font-weight: 500;
       font-size: 0.8rem;
       span:nth-of-type(1) {
         margin-right: 10px;

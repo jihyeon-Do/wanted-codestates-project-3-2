@@ -2,9 +2,12 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { HiCalculator } from 'react-icons/hi';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 const VirtualMatch = props => {
   // const [colors, setColors] = useState(['#f62459', '#07f']);
+
+  const nickname = useSelector(state => state.dataReducer.data?.nickName);
 
   // useEffect(() => {
   //   const timer = setTimeout(() => {
@@ -17,7 +20,7 @@ const VirtualMatch = props => {
 
   return (
     <Matching className="matching">
-      <p>1대1 매칭 시뮬레이터-{'법사케피'}와 가상 대결을 펼쳐보세요.</p>
+      <p>1대1 매칭 시뮬레이터 - {nickname}와 가상 대결을 펼쳐보세요.</p>
       <button>
         <span>
           <HiCalculator aria-hidden="true" size={15} />
@@ -51,7 +54,7 @@ const Matching = styled.aside`
   margin: 20px 0;
   p {
     color: #fff;
-    font-weight: 900;
+    font-weight: 500;
   }
   button {
     color: #fff;
