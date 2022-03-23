@@ -16,6 +16,7 @@ export const fetchUserData = async nickname => {
     });
     return userMatchInfo.data;
   } catch (error) {
+    // 사용자가 없을때 예외처리 해주기
     console.log(error);
   }
 };

@@ -1,7 +1,8 @@
 import { SEARCH_USER } from '../action/action';
+import data from '../../data';
 
 const initialState = {
-  data: {},
+  data: data,
 };
 
 export const dataReducer = (state = initialState, action) => {
