@@ -111,7 +111,7 @@ const HeaderSection = styled.div`
         a {
           color: white;
           font-size: 0.9rem;
-          font-weight: 600;
+          font-weight: 500;
         }
       }
     }
