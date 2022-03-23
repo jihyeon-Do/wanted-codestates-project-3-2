@@ -1,24 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Main from './pages/Main';
+import User from './pages/User';
+import Rank from './pages/Rank';
+import Header from './components/Header';
+// import fetchUserData from './service/getData';
 
 function App() {
+  // useEffect(() => {
+  //   const userData = fetchUserData();
+  //   setUser(userData);
+  // }, []);
+
+  // const [user, setUser] = useState();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Main />} />
+        <Route path="/kart/user" element={<User />} />
+        <Route path="/kart/rank" element={<Rank />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
