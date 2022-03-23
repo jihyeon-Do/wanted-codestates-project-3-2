@@ -8,8 +8,10 @@ const GlobalStyles = createGlobalStyle`
 		box-sizing:border-box;
 	}
 	body {
-		letter-spacing: -2px;
+		letter-spacing: -1px;
 		background-color: #fafafa;
+		font-family: 'Noto Sans KR', sans-serif;
+		font-size:16px;
   }
 	a {
 		text-decoration: none;
