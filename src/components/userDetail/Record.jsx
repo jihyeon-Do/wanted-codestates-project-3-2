@@ -5,24 +5,34 @@ import { useSelector } from 'react-redux';
 
 const Record = props => {
   const matchData = useSelector(state => state.dataReducer.data?.matches);
+  let result,
+    addition,
+    subtraction,
+    additionRate,
+    retired,
+    retiredRate,
+    finishRate;
 
-  let result;
-  let addition;
-  let subtraction;
-  let additionRate;
-  let retiredRate;
+  console.log(matchData[0]);
 
-  if (matchData) {
-    result = matchData[0].matches.map(value => {
-      return +value.player.matchWin;
-    });
-    addition = result.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-      0,
-    );
-    subtraction = result.length - addition;
-    additionRate = (addition / result.length) * 100;
-  }
+  result = matchData[0].matches.map(value => {
+    return +value.player.matchWin;
+  });
+  addition = result.reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0,
+  );
+  subtraction = result.length - addition;
+  additionRate = addition / result.length;
+  retired = matchData[0].matches.map(value => {
+    return +value.player.matchRetired;
+  });
+  retired = [...retired].reduce(
+    (accumulator, currentValue) => accumulator + currentValue,
+    0,
+  );
+  finishRate = (result.length - retired) / 200;
+  retiredRate = 1 - finishRate;
 
   return (
     <>
@@ -36,7 +46,84 @@ const Record = props => {
               {result.length}전 {addition}승 {subtraction}패
             </p>
           </div>
-          <div>승률{additionRate}</div>
+          <Graph>
+            <div>
+              <p>{`${additionRate * 100}%`}</p>
+              <svg>
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="40"
+                  fill="none"
+                  stroke="#ebebeb"
+                  strokeWidth="10"
+                />
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="40"
+                  fill="none"
+                  stroke="#07f"
+                  strokeWidth="10"
+                  strokeDasharray={`${2 * Math.PI * 40 * additionRate} ${
+                    2 * Math.PI * 40 * (1 - additionRate)
+                  }`}
+                  // 이 작업을 밑에 애니메이션에서 시도해보기
+                  strokeDashoffset={2 * Math.PI * 40 * 0.25}
+                />
+              </svg>
+            </div>
+            <div>
+              <p>{`${Math.floor(finishRate * 100)}%`}</p>
+              <svg>
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="40"
+                  fill="none"
+                  stroke="#ebebeb"
+                  strokeWidth="10"
+                />
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="40"
+                  fill="none"
+                  stroke="#9bd728"
+                  strokeWidth="10"
+                  strokeDasharray={`${2 * Math.PI * 40 * finishRate} ${
+                    2 * Math.PI * 40 * (1 - finishRate)
+                  }`}
+                  strokeDashoffset={2 * Math.PI * 40 * 0.25}
+                />
+              </svg>
+            </div>
+            <div>
+              <p>{`${Math.ceil(retiredRate * 100)}%`}</p>
+              <svg>
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="40"
+                  fill="none"
+                  stroke="#ebebeb"
+                  strokeWidth="10"
+                />
+                <circle
+                  cx="60"
+                  cy="60"
+                  r="40"
+                  fill="none"
+                  stroke="#f62459"
+                  strokeWidth="10"
+                  strokeDasharray={`${2 * Math.PI * 40 * retiredRate} ${
+                    2 * Math.PI * 40 * (1 - retiredRate)
+                  }`}
+                  strokeDashoffset={2 * Math.PI * 40 * 0.25}
+                />
+              </svg>
+            </div>
+          </Graph>
           <div>
             <p>
               <em>최다주행</em> 모드
@@ -58,13 +145,13 @@ const RecordComponent = styled.article`
     border-bottom: 1px solid #ccc;
     h4 {
       font-size: 0.9rem;
-      font-weight: bold;
+      font-weight: 500;
       em {
         color: #07f;
       }
     }
     p {
-      font-weight: bold;
+      font-weight: 500;
       font-size: 0.8rem;
     }
   }
@@ -85,7 +172,53 @@ const RecordComponent = styled.article`
     }
     & > p:nth-of-type(2) {
       font-size: 1.1rem;
-      font-weight: bold;
+      font-weight: 500;
+    }
+  }
+`;
+
+const Graph = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  div {
+    width: 120px;
+    height: 120px;
+    position: relative;
+    p {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.3rem;
+    }
+    &:nth-of-type(1) p {
+      color: #07f;
+    }
+    &:nth-of-type(2) p {
+      color: #9bd728;
+    }
+    &:nth-of-type(3) p {
+      color: #f62459;
+    }
+    svg {
+      width: 120px;
+      height: 120px;
+      display: block;
+      position: relative;
+      circle {
+        animation: circle-fill-animation 2s ease;
+        transition: all 2s;
+
+        @keyframes circle-fill-animation {
+          0% {
+            stroke-dasharray: 0 ${2 * Math.PI * 40};
+          }
+          /* 100% {
+          stroke-dasharray: 0 ${2 * Math.PI * 40};
+        } */
+        }
+      }
     }
   }
 `;
