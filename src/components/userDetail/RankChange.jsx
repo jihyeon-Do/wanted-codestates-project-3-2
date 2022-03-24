@@ -2,109 +2,94 @@ import React, { useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
-import { Chart, registerables } from 'chart.js';
+// import { Chart, registerables } from 'chart.js';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import { Line } from 'react-chartjs-2';
 
 const RankChange = props => {
   const matchData = useSelector(state => state.dataReducer.data?.matches);
-  const canvasDom = useRef(null);
-  const chartX = [
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-    '이전1경기',
-  ];
-  useEffect(() => {
-    const ctx = canvasDom.current.getContext('2d');
-    Chart.register(...registerables);
+  const matches = matchData[0].matches;
 
-    var myChart = new Chart(ctx, {
-      type: 'line',
-      data: {
-        labels: chartX,
-        datasets: [
-          {
-            label: '순위',
-            data: [
-              1, 2, 1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 5, 5, 4, 3, 3, 7, 8, 4, 1, 2,
-              1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 5, 5, 4, 3, 3, 7, 8, 4, 1, 2, 3, 4,
-              4, 4, 4, 5, 6, 3,
-            ],
-            borderColor: '#07f',
-            borderWidth: 1,
-            pointBorderWidth: 1,
-            pointRadius: 2,
-            pointBackgroundColor: '#07f',
-          },
-        ],
-      },
-      options: {
-        responsive: true,
-        lineTension: 0.4,
-        plugins: {
-          legend: {
-            display: false,
-          },
-        },
-        scales: {
-          x: {
-            display: false,
-          },
-          y: {
-            reverse: true,
-          },
-        },
-      },
+  let manyGames,
+    addAverageRank,
+    averageRank,
+    fewMatches,
+    AddfewMatches,
+    fewMatchesRank;
+
+  manyGames = matches
+    .map(v => +v.player.matchRank)
+    .filter(v => {
+      return v !== 99 && v !== 0;
     });
-    return () => {
-      myChart.destroy();
-    };
-  }, []);
+  addAverageRank = manyGames.reduce((acc, cur) => {
+    return acc + cur;
+  }, 0);
+  averageRank = (addAverageRank / manyGames.length).toFixed(2);
+  fewMatches = manyGames.slice(0, 50);
+  AddfewMatches = fewMatches.reduce((acc, cur) => {
+    return acc + cur;
+  });
+  fewMatchesRank = (AddfewMatches / 50).toFixed(2);
+
+  ChartJS.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+  );
+
+  const options = {
+    responsive: true,
+    lineTension: 0.4,
+
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: false,
+      },
+    },
+    scales: {
+      x: {
+        display: false,
+      },
+      y: {
+        reverse: true,
+        max: 8,
+      },
+    },
+  };
+
+  const data = {
+    labels: fewMatches,
+    datasets: [
+      {
+        label: 'Dataset 1',
+        data: fewMatches,
+        borderColor: '#07f',
+        pointBackgroundColor: '#07f',
+        pointRadius: 2,
+        borderWidth: 1,
+        pointBorderWidth: 1,
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+      },
+    ],
+  };
+
   return (
     <>
       {matchData && (
@@ -115,15 +100,15 @@ const RankChange = props => {
             </h4>
             <p>
               <span>
-                지난200경기 <em>1.56위</em>
+                지난200경기 <em>{averageRank}위</em>
               </span>
               <span>
-                최근50경기 <em>2.12위</em>
+                최근50경기 <em>{fewMatchesRank}위</em>
               </span>
             </p>
           </div>
           <div>
-            <canvas ref={canvasDom}></canvas>
+            <Line data={data} options={options} />
           </div>
         </RankChangeComponent>
       )}
