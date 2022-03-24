@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { BsPersonFill, BsPeopleFill } from 'react-icons/bs';
 import { IoReloadOutline, IoShareSocialSharp } from 'react-icons/io5';
 import { BsFillBellFill } from 'react-icons/bs';
 import { FaEye } from 'react-icons/fa';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
+import MatchTypeTab from './MatchTypeTab';
 
 const UserInfo = props => {
   const matchData = useSelector(state => state.dataReducer.data?.matches);
@@ -22,29 +22,14 @@ const UserInfo = props => {
         </UserCharacter>
       )}
       <ProfileView>
-        <h1>
+        <p>
           {nickname}
           <span>
             <img src="../images/example_license.png" alt="라이센스 등급" />
           </span>
-        </h1>
+        </p>
         <Wrapper>
-          <ProfileTab>
-            <ul>
-              <li>
-                <span>
-                  <BsPersonFill aria-hidden="true" size={17} />
-                </span>
-                개인전
-              </li>
-              <li>
-                <span>
-                  <BsPeopleFill aria-hidden="true" size={17} />
-                </span>
-                팀전
-              </li>
-            </ul>
-          </ProfileTab>
+          <MatchTypeTab nickname={nickname} />
           <ProfileMenu>
             <ul>
               <li>
@@ -97,7 +82,7 @@ const UserCharacter = styled.div`
 `;
 
 const ProfileView = styled.div`
-  h1 {
+  p {
     font-size: 45px;
     font-weight: 700;
     color: #1f334a;

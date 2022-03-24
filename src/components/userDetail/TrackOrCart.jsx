@@ -60,7 +60,8 @@ const TrackOrCart = props => {
       },
       options: {
         responsive: true,
-        lineTension: 0.8,
+        lineTension: 0.4,
+        pointRadius: 2,
         animations: {
           radius: {
             duration: 400,
