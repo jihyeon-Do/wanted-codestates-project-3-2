@@ -16,7 +16,7 @@ const Search = props => {
     if (nickname === '') {
       alert('올바른 닉네임을 입력해주세요');
     } else {
-      dispatch(searchUser(await fetchUserData(nickname)));
+      dispatch(searchUser(await fetchUserData(nickname, 1)));
     }
   };
 

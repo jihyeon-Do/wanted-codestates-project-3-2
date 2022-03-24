@@ -75,11 +75,17 @@ const RankChange = props => {
               1, 1, 1, 1, 1, 1, 1, 1, 5, 5, 5, 5, 4, 3, 3, 7, 8, 4, 1, 2, 3, 4,
               4, 4, 4, 5, 6, 3,
             ],
+            borderColor: '#07f',
+            borderWidth: 1,
+            pointBorderWidth: 1,
+            pointRadius: 2,
+            pointBackgroundColor: '#07f',
           },
         ],
       },
       options: {
         responsive: true,
+        lineTension: 0.4,
         plugins: {
           legend: {
             display: false,

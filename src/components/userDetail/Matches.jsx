@@ -99,6 +99,7 @@ const MatchesComponent = styled.article`
       border-left: 1px solid #ebebeb;
       padding: 10px;
       background-color: transparent;
+      cursor: pointer;
     }
   }
 `;

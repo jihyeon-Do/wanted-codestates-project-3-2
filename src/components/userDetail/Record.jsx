@@ -48,7 +48,7 @@ const Record = props => {
           </div>
           <Graph>
             <div>
-              <p>{`${additionRate * 100}%`}</p>
+              <p>{`${Math.ceil(additionRate * 100)}%`}</p>
               <svg>
                 <circle
                   cx="60"
