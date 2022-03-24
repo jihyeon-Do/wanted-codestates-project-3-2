@@ -52,6 +52,7 @@ const AnimationBackground = styled.div`
   background-color: #005fcc;
   z-index: -10;
   margin-top: 100px;
+  overflow: hidden;
   div {
     background: url('../images/background_wave.svg') repeat-x;
     position: absolute;
