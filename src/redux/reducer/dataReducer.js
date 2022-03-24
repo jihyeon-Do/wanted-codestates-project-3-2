@@ -6,7 +6,6 @@ const initialState = {
 };
 
 export const dataReducer = (state = initialState, action) => {
-  console.log(action.payload);
   switch (action.type) {
     case SEARCH_USER: {
       return {
