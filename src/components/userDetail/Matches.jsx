@@ -94,13 +94,6 @@ const MatchesComponent = styled.article`
     height: 100px;
     margin-bottom: 10px;
     background-color: #fff;
-    // 리타이어
-    // background-color : #rgba(246,36,89,.05)
-    // border-color: #f2f2f2 #f2f2f2 #f2f2f2 #f62459
-
-    // ?
-    // #fff
-    // #f2f2f2 #f2f2f2 #f2f2f2 #a1a1a1
 
     & > p:nth-of-type(1) {
       font-size: 0.7rem;

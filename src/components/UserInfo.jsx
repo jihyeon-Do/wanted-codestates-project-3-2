@@ -103,43 +103,6 @@ const Wrapper = styled.div`
   justify-content: space-around;
 `;
 
-const ProfileTab = styled.div`
-  ul {
-    display: flex;
-    align-items: center;
-    padding-right: 10px;
-    li {
-      border-style: solid;
-      border-color: #07f;
-      width: 100px;
-      height: 25px;
-      text-align: center;
-      line-height: 23px;
-      font-size: 0.75rem;
-      color: #07f;
-      cursor: pointer;
-      &:hover {
-        background-color: #07f;
-        color: #fff;
-      }
-      &:nth-of-type(1) {
-        border-width: 0.7px 0 0.7px 0.7px;
-        border-radius: 5px 0 0 5px;
-      }
-      &:nth-of-type(2) {
-        border-width: 0.7px 0.7px 0.7px 0.7px;
-        border-radius: 0 5px 5px 0;
-      }
-      span {
-        margin-right: 5px;
-        svg {
-          vertical-align: text-top;
-        }
-      }
-    }
-  }
-`;
-
 const ProfileMenu = styled.div`
   ul {
     display: flex;
