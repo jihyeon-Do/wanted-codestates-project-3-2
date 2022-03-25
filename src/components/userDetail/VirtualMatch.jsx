@@ -9,15 +9,6 @@ const VirtualMatch = props => {
 
   const nickname = useSelector(state => state.dataReducer.data?.nickName);
 
-  // useEffect(() => {
-  //   const timer = setTimeout(() => {
-  //     let color1 = '#' + Math.round(Math.random() * 0xffffff).toString(16);
-  //     let color2 = '#' + Math.round(Math.random() * 0xffffff).toString(16);
-  //     setColors([color1, color2]);
-  //   }, 5000);
-  //   return () => clearTimeout(timer);
-  // }, [colors]);
-
   return (
     <Matching className="matching">
       <p>1대1 매칭 시뮬레이터 - {nickname}와 가상 대결을 펼쳐보세요.</p>
