@@ -82,7 +82,6 @@ const Matches = props => {
 };
 
 const MatchesComponent = styled.article`
-  ${props => console.log(props)}
   section {
     display: flex;
     align-items: center;
@@ -94,7 +93,7 @@ const MatchesComponent = styled.article`
     width: 100%;
     height: 100px;
     margin-bottom: 10px;
-    background-color: ${props => console.log(props)};
+    background-color: #fff;
     // 리타이어
     // background-color : #rgba(246,36,89,.05)
     // border-color: #f2f2f2 #f2f2f2 #f2f2f2 #f62459
