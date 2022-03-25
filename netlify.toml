@@ -1,9 +1,9 @@
 [[redirects]]
   from = "/api/*"
-  to = "https://api.github.com/:splat"
+  to = "https://api.nexon.co.kr/kart/v1.0/:splat"
   status = 200
 
 [[redirects]]
-  from = "/"
+  from = "/*"
   to ="/index.html"
   status = 200
