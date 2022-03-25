@@ -35,7 +35,7 @@ const Header = props => {
               <Link to="/">홈</Link>
             </li>
             <li>
-              <Link to="/">랭킹</Link>
+              <Link to="/kart/rank">랭킹</Link>
             </li>
             <li>
               <Link to="/">카트</Link>

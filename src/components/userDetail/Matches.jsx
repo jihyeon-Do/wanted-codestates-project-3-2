@@ -1,52 +1,88 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { IoMdArrowDropdown } from 'react-icons/io';
 import styled from 'styled-components';
+import { useSelector } from 'react-redux';
 
 const Matches = props => {
+  const trackData = require('../../assets/track.json');
+  const kartData = require('../../assets/kart.json');
+
+  const matchData = useSelector(state => state.dataReducer.data?.matches);
+
+  function timeForToday(value) {
+    const today = new Date();
+    const timeValue = new Date(value);
+
+    const betweenTime = Math.floor(
+      (today.getTime() - timeValue.getTime()) / 1000 / 60,
+    );
+    if (betweenTime < 1) return '방금전';
+    if (betweenTime < 60) {
+      return `${betweenTime}분전`;
+    }
+
+    const betweenTimeHour = Math.floor(betweenTime / 60);
+    if (betweenTimeHour < 24) {
+      return `${betweenTimeHour}시간전`;
+    }
+
+    const betweenTimeDay = Math.floor(betweenTime / 60 / 24);
+    if (betweenTimeDay < 365) {
+      return `${betweenTimeDay}일전`;
+    }
+
+    return `${Math.floor(betweenTimeDay / 365)}년전`;
+  }
   return (
     <MatchesComponent className="matches">
-      <section>
-        <p>11시간전</p>
-        <p>
-          <em>#1</em>/ 8
-        </p>
-        <p>쥐라기 공룡 무덤</p>
-        <p>어벤저 V1</p>
-        <p>1{'01'}81</p>
-        <button>
-          <IoMdArrowDropdown aria-hidden="true" size={20} color="#a1a1a1" />
-        </button>
-      </section>
-      <section>
-        <p>11시간전</p>
-        <p>
-          <em>#1</em>/ 8
-        </p>
-        <p>쥐라기 공룡 무덤</p>
-        <p>어벤저 V1</p>
-        <p>1{'01'}81</p>
-        <button>
-          <IoMdArrowDropdown aria-hidden="true" size={20} color="#a1a1a1" />
-        </button>
-      </section>
-      <section>
-        <p>11시간전</p>
-        <p>
-          <em>#1</em>/ 8
-        </p>
-        <p>쥐라기 공룡 무덤</p>
-        <p>어벤저 V1</p>
-        <p>1{'01'}81</p>
-        <button>
-          <IoMdArrowDropdown aria-hidden="true" size={20} color="#a1a1a1" />
-        </button>
-      </section>
+      {matchData &&
+        matchData[0].matches.map((value, index) => {
+          const matchTrakData = trackData.filter(v => {
+            return value.trackId === v.id && v.name;
+          });
+          const matchKartData = kartData.filter(v => {
+            return value.player.kart === v.id && v.name;
+          });
+
+          return (
+            <section key={index}>
+              <p>{timeForToday(value.endTime)}</p>
+              {+value.player.matchRank === 99 ||
+              +value.player.matchRank === 0 ? (
+                <p>
+                  <em>#리타이어</em>
+                </p>
+              ) : (
+                <p>
+                  <em>{`#${value.player.matchRank}`}</em>/ {value.playerCount}
+                </p>
+              )}
+              <p>{matchTrakData[0].name}</p>
+              <p>{matchKartData[0].name}</p>
+              <p>
+                {(+value.player.matchTime / 1000 / 60).toFixed(4).slice(0, 1)}
+                {`'${(+value.player.matchTime / 1000 / 60)
+                  .toFixed(4)
+                  .slice(2, 4)}'`}
+                {(+value.player.matchTime / 1000 / 60).toFixed(4).slice(4, 6)}
+              </p>
+              <button>
+                <IoMdArrowDropdown
+                  aria-hidden="true"
+                  size={20}
+                  color="#a1a1a1"
+                />
+              </button>
+            </section>
+          );
+        })}
     </MatchesComponent>
   );
 };
 
 const MatchesComponent = styled.article`
+  ${props => console.log(props)}
   section {
     display: flex;
     align-items: center;
@@ -54,11 +90,11 @@ const MatchesComponent = styled.article`
     padding-left: 20px;
     border-style: solid;
     border-width: 1px 1px 1px 4px;
-    border-color: #f2f2f2 #f2f2f2 #f2f2f2 #07f;
+    border-color: #f2f2f2 #f2f2f2 #f2f2f2 #a1a1a1;
     width: 100%;
     height: 100px;
     margin-bottom: 10px;
-    background-color: rgba(0, 119, 255, 0.05);
+    background-color: ${props => console.log(props)};
     // 리타이어
     // background-color : #rgba(246,36,89,.05)
     // border-color: #f2f2f2 #f2f2f2 #f2f2f2 #f62459

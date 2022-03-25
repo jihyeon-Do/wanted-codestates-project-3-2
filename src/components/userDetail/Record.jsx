@@ -13,8 +13,6 @@ const Record = props => {
     retiredRate,
     finishRate;
 
-  console.log(matchData[0]);
-
   result = matchData[0].matches.map(value => {
     return +value.player.matchWin;
   });
@@ -27,12 +25,12 @@ const Record = props => {
   retired = matchData[0].matches.map(value => {
     return +value.player.matchRetired;
   });
-  retired = [...retired].reduce(
+  retired = retired.reduce(
     (accumulator, currentValue) => accumulator + currentValue,
     0,
   );
-  finishRate = (result.length - retired) / 200;
-  retiredRate = 1 - finishRate;
+  retiredRate = retired / 200;
+  finishRate = 1 - retiredRate;
 
   return (
     <>
