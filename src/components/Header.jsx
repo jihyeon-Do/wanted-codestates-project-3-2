@@ -107,7 +107,7 @@ const HeaderSection = styled.div`
       li {
         padding: 0 30px;
         margin-right: 30px;
-        box-shadow: inset 0 -4px 0 0 pink;
+        /* box-shadow: inset 0 -4px 0 0 pink; */
         a {
           color: white;
           font-size: 0.9rem;

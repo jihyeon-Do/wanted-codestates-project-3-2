@@ -110,7 +110,6 @@ const CommentComponent = styled.article`
     }
   }
   & > div:nth-of-type(3) {
-    /* background-color: pink; */
     border-top: 1px solid #f2f2f2;
     position: absolute;
     bottom: 20px;
