@@ -8,7 +8,7 @@ import UserDetailInfo from '../components/UserDetailInfo';
 import { useSelector } from 'react-redux';
 
 const User = props => {
-  const matchData = useSelector(state => state.dataReducer.data[0]?.matches);
+  // const matchData = useSelector(state => state.dataReducer.data[0]?.matches);
 
   return (
     <UserMainComponent>
