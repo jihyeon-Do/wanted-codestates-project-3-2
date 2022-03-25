@@ -18,8 +18,8 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="/" element={<Main />} />
-        <Route path="/kart/user" element={<User />} />
+        <Route path="/" element={<User />} />
+        {/* <Route path="/kart/user" element={<User />} /> */}
         <Route path="/kart/rank" element={<Rank />} />
       </Routes>
     </BrowserRouter>
